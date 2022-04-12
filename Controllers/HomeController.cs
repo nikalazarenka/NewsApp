@@ -22,7 +22,7 @@ namespace NewsApp.Controllers
         public ViewResult Index()
         {
             IQueryable<News> _news = (IQueryable<News>)_newsRepository.News;
-            _news = _newsRepository.News.
+            
 
             var news = new NewsViewModel
             {
