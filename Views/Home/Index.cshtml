@@ -1,0 +1,12 @@
+﻿@model NewsViewModel
+
+<h1 align="center">LATEST NEWS</h1>
+
+<div class="row mt-5 mb-2">
+    @{
+        foreach (News oneNews in Model.News)
+        {
+            @Html.Partial("AllNews", oneNews)
+        }
+    }
+</div>

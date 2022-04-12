@@ -1,0 +1,12 @@
+﻿@model News
+
+
+
+<div class="col-lg-4">
+    <h2>@Model.Title</h2>
+    <img height="500" width="500"
+         class="img-thumbnail"
+         src="data:image/jpeg; base64, @Model.ImageData"
+         style="min-height:400px; min-width:356px; margin-bottom:4px;" />
+    <h3>@Model.Subtitle</h3>
+</div>
