@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace NewsApp.Controllers
 {
-    public class HomeController : Controller
+    public class NewsController : Controller
     {
         private readonly INews _newsRepository;
 
-        public HomeController(INews newsRepository)
+        public NewsController(INews newsRepository)
         {
             _newsRepository = newsRepository;
         }
@@ -22,10 +22,6 @@ namespace NewsApp.Controllers
         public ViewResult Index()
         {
             IQueryable<News> _news = (IQueryable<News>)_newsRepository.News;
-            if (_news.Count() > 3)
-            {
-                _news = _news.OrderByDescending(n=>n.PublicationDate).Take(3);
-            }
 
             var news = new NewsViewModel
             {
