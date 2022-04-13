@@ -19,13 +19,20 @@ namespace NewsApp.Controllers
             _newsRepository = newsRepository;
         }
 
-        public ViewResult Index()
+        public ViewResult Index(int page = 1)
         {
+            int pageSize = 6;
+
             IQueryable<News> _news = (IQueryable<News>)_newsRepository.News;
+            var count = _news.Count();
+            var items = _news.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
 
             var news = new NewsViewModel
             {
-                News = _news
+                News = items,
+                PageViewModel = pageViewModel
             };
 
             return View(news);
