@@ -1,0 +1,42 @@
+﻿@model News
+
+<h1 align="center">CREATE NEWS</h1>
+
+<script src="~/js/ckeditor/ckeditor.js"></script>
+
+<form asp-action="Create" asp-controller="News" asp-area="admin" method="post">
+
+    <div class="mb-3">
+        <label class="control-label" asp-for="Title">Title</label>
+        <input type="text" class="form-control" asp-for="Title" />
+    </div>
+
+    <div class="mb-3">
+        <label class="control-label" asp-for="Subtitle">Subtitle</label>
+        <input type="text" class="form-control" asp-for="Subtitle" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Text">Text</label>
+        <textarea style="min-width: -webkit-fill-available; height: 300px;" asp-for="Text"></textarea>
+        <span asp-validation-for="Text"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageData">Image</label>
+        <br />
+        <input type="file" name="image" id="image"  />
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>
+
+<script>
+    window.onload = function () {
+        var newCKEdit = CKEDITOR.replace('@Html.IdFor(x=>x.Text)');
+        newCKEdit.updateElement();
+    }
+</script>

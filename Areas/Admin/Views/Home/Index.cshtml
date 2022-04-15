@@ -6,7 +6,7 @@
 
 <h1 align="center">ADMIN PANEL</h1>
 
-<form asp-controller="" asp-action="Create" method="get">
+<form asp-area="admin" asp-controller="News" asp-action="Create" method="get">
     <div class="form-group">
         <input type="submit" class="btn btn-danger" value="Add New" style="background-color: dodgerblue; border-color: dodgerblue;" />
     </div>
@@ -24,13 +24,13 @@
                  style="min-height:400px; min-width:356px; margin-bottom:4px;" />
             <h3>@oneNews.Subtitle</h3>
             <div class="d-flex">
-                <p><a class="btn btn-warning mr-1" asp-controller="More" asp-route-id="@oneNews.Id">More</a></p>
+                <p><a class="btn btn-warning mr-1" asp-area="" asp-controller="More" asp-route-id="@oneNews.Id">More</a></p>
                 <form asp-controller="" asp-action="Edit" asp-route-id="@oneNews.Id" method="get">
                     <div class="form-group">
                         <input type="submit" class="btn btn-danger" value="Edit" style="background-color: limegreen; border-color: limegreen; margin-right: 2px" />
                     </div>
                 </form>
-                <form asp-controller="" asp-action="Delete" asp-route-id="@oneNews.Id" method="post">
+                <form asp-area="admin" asp-controller="News" asp-action="Delete" asp-route-id="@oneNews.Id" method="post">
                     <div class="form-group">
                         <input type="submit" class="btn btn-danger" value="Delete" style="background-color: indianred; border-color: indianred" />
                     </div>
