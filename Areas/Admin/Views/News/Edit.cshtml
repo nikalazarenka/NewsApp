@@ -1,10 +1,10 @@
 ﻿@model News
 
-<h1 align="center">CREATE NEWS</h1>
+<h1 align="center">EDIT NEWS</h1>
 
 <script src="~/js/ckeditor/ckeditor.js"></script>
 
-<form enctype="multipart/form-data" asp-action="Create" asp-controller="News" asp-area="admin" method="post">
+<form enctype="multipart/form-data" asp-action="Edit" asp-controller="News" asp-area="admin" method="post">
 
     <div class="mb-3">
         <label class="control-label" asp-for="Title">Title</label>
@@ -25,7 +25,11 @@
     <div class="mb-3">
         <label asp-for="Image">Image</label>
         <br />
-        <input type="file" asp-for="Image"/>
+        <input type="file" asp-for="Image" />
+        <div>
+            <img class="img-block" 
+                 src="data:image/jpeg; base64, @Model.ImageData" />
+        </div>
     </div>
 
     <div class="mb-3">

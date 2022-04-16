@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using NewsApp.Data.Models;
+﻿using NewsApp.Data.Models;
 using System.Collections.Generic;
 
 namespace NewsApp.Data.Interfaces
@@ -12,7 +11,8 @@ namespace NewsApp.Data.Interfaces
 
         public void Delete(int? id);
 
-        public void Create(string title, string subtitle, IFormFile image, string text);
+        public void Create(News news);
+        public void Edit(News news);
 
     }
 }

@@ -25,7 +25,7 @@
             <h3>@oneNews.Subtitle</h3>
             <div class="d-flex">
                 <p><a class="btn btn-warning mr-1" asp-area="" asp-controller="More" asp-route-id="@oneNews.Id">More</a></p>
-                <form asp-controller="" asp-action="Edit" asp-route-id="@oneNews.Id" method="get">
+                <form asp-area="admin" asp-controller="News" asp-action="Edit" asp-route-id="@oneNews.Id" method="get">
                     <div class="form-group">
                         <input type="submit" class="btn btn-danger" value="Edit" style="background-color: limegreen; border-color: limegreen; margin-right: 2px" />
                     </div>

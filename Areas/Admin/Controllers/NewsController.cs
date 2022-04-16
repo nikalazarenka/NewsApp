@@ -5,6 +5,7 @@ using NewsApp.Data.Models;
 using NewsApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,10 +57,55 @@ namespace NewsApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(string title, string subtitle, IFormFile image, string text)
+        public IActionResult Create(News news)
         {
-            _newsRepository.Create(title, subtitle, image, text);
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                string imageData = string.Empty;
+                using (var stream = new MemoryStream())
+                {
+                    news.Image.CopyTo(stream);
+                    imageData = Convert.ToBase64String(stream.ToArray());
+                }
+
+                news.ImageData = imageData;
+                news.PublicationDate = DateTime.Now;
+                _newsRepository.Create(news);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(news);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id != null)
+            {
+                News news = _newsRepository.getNewsById(id);
+                return View(news);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(News news)
+        {
+            if (ModelState.IsValid)
+            {
+                string imageData = string.Empty;
+                using (var stream = new MemoryStream())
+                {
+                    news.Image.CopyTo(stream);
+                    imageData = Convert.ToBase64String(stream.ToArray());
+                }
+
+                news.ImageData = imageData;
+                _newsRepository.Edit(news);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(news);
         }
     }
 }
