@@ -1,39 +1,39 @@
 ﻿@model News
 
-<h1 align="center">EDIT NEWS</h1>
+<h1 class="lng-edittitle" align="center">EDIT NEWS</h1>
 
 <script src="~/js/ckeditor/ckeditor.js"></script>
 
 <form enctype="multipart/form-data" asp-action="Edit" asp-controller="News" asp-area="admin" method="post">
 
     <div class="mb-3">
-        <label class="control-label" asp-for="Title">Title</label>
+        <label class="control-label lng-title" asp-for="Title">Title</label>
         <input type="text" class="form-control" asp-for="Title" />
     </div>
 
     <div class="mb-3">
-        <label class="control-label" asp-for="Subtitle">Subtitle</label>
+        <label class="control-label lng-subtitle" asp-for="Subtitle">Subtitle</label>
         <input type="text" class="form-control" asp-for="Subtitle" />
     </div>
 
     <div class="mb-3">
-        <label asp-for="Text">Text</label>
+        <label asp-for="Text" class="lng-text">Text</label>
         <textarea style="min-width: -webkit-fill-available; height: 300px;" asp-for="Text"></textarea>
         <span asp-validation-for="Text"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Image">Image</label>
+        <label asp-for="Image" class="lng-image">Image</label>
         <br />
         <input type="file" asp-for="Image" />
         <div>
-            <img class="img-block" 
+            <img class="img-block"
                  src="data:image/jpeg; base64, @Model.ImageData" />
         </div>
     </div>
 
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary lng-submit">Submit</button>
     </div>
 
 </form>
@@ -44,3 +44,5 @@
         newCKEdit.updateElement();
     }
 </script>
+<script src="~/js/lang.js"></script>
+<script src="~/js/site.js"></script>

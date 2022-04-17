@@ -1,6 +1,6 @@
 ﻿@model NewsViewModel
 
-<h1 align="center">ALL NEWS</h1>
+<h1 class="lng-allNews" align="center">ALL NEWS</h1>
 
 <div class="row mt-5 mb-2">
     @{
@@ -14,20 +14,23 @@
 
 @if (Model.PageViewModel.HasPreviousPage)
 {
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-       class="btn btn-outline-dark">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Previous
-    </a>
+<a asp-action="Index"
+   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+   class="btn btn-outline-dark">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+    &lt
+</a>
 }
 
 @if (Model.PageViewModel.HasNextPage)
 {
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       class="btn btn-outline-dark">
-        Next
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
+<a asp-action="Index"
+   asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+   class="btn btn-outline-dark">
+    &gt
+    <i class="glyphicon glyphicon-chevron-right"></i>
+</a>
 }
+
+<script src="~/js/lang.js"></script>
+<script src="~/js/site.js"></script>

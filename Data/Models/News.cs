@@ -10,11 +10,11 @@ namespace NewsApp.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "String length must be between 3 and 30 characters")]
+        [StringLength(30, MinimumLength = 3)]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(80, MinimumLength = 3, ErrorMessage = "String length must be between 3 and 80 characters")]
+        [StringLength(80, MinimumLength = 3)]
         public string Subtitle { get; set; }
 
         public string ImageData { get; set; }

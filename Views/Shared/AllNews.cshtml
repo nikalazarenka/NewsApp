@@ -7,5 +7,8 @@
          src="data:image/jpeg; base64, @Model.ImageData"
          style="min-height:400px; min-width:356px; margin-bottom:4px;" />
     <h3>@Model.Subtitle</h3>
-    <p><a class="btn btn-warning" asp-controller="More" asp-route-id="@Model.Id">More</a></p>
+    <p><a class="btn btn-warning lng-more" asp-controller="More" asp-route-id="@Model.Id">More</a></p>
 </div>
+
+<script src="~/js/lang.js"></script>
+<script src="~/js/site.js"></script>
