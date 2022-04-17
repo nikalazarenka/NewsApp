@@ -1,0 +1,63 @@
+﻿@model NewsViewModel
+
+<form  method="post" style="float: right; contain: size;">
+    <button class="btn btn-outline-success" type="submit" asp-area="" asp-controller="Account" asp-action="Logout">Logout</button>
+</form>
+
+<h1 align="center">ADMIN PANEL</h1>
+
+<form asp-area="admin" asp-controller="News" asp-action="Create" method="get">
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Add New" style="background-color: dodgerblue; border-color: dodgerblue;" />
+    </div>
+</form>
+
+<div class="row mt-5 mb-2">
+    @{
+        foreach (News oneNews in Model.News)
+        {
+        <div class="col-lg-4">
+            <h2 align="center">@oneNews.Title</h2>
+            <img height="500" width="500"
+                 class="img-thumbnail"
+                 src="data:image/jpeg; base64, @oneNews.ImageData"
+                 style="min-height:400px; min-width:356px; margin-bottom:4px;" />
+            <h3>@oneNews.Subtitle</h3>
+            <div class="d-flex">
+                <p><a class="btn btn-warning mr-1" asp-area="" asp-controller="More" asp-route-id="@oneNews.Id">More</a></p>
+                <form asp-area="admin" asp-controller="News" asp-action="Edit" asp-route-id="@oneNews.Id" method="get">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Edit" style="background-color: limegreen; border-color: limegreen; margin-right: 2px" />
+                    </div>
+                </form>
+                <form asp-area="admin" asp-controller="News" asp-action="Delete" asp-route-id="@oneNews.Id" method="post">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Delete" style="background-color: indianred; border-color: indianred" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        }
+    }
+</div>
+
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Previous
+    </a>
+}
+
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Next
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

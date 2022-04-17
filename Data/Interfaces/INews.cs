@@ -9,5 +9,10 @@ namespace NewsApp.Data.Interfaces
 
         News getNewsById(int? newsId);
 
+        public void Delete(int? id);
+
+        public void Create(News news);
+        public void Edit(News news);
+
     }
 }

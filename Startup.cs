@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NewsApp.Data.Interfaces;
 using NewsApp.Data.Models;
 using NewsApp.Data.Repositories;
+using NewsApp.Service;
 
 namespace NewsApp
 {
@@ -28,9 +30,36 @@ namespace NewsApp
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = false;
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "news";
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/account/login";
+                options.AccessDeniedPath = "/account/accessdenied";
+                options.SlidingExpiration = true;
+            });
+
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            });
+
             services.AddMemoryCache();
             services.AddSession();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options => {
+                options.EnableEndpointRouting = false;
+                options.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,8 +68,22 @@ namespace NewsApp
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseRouting();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc();
+            //app.UseMvcWithDefaultRoute();
+            
+
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+            });
 
             using (var scope = app.ApplicationServices.CreateScope())
             {

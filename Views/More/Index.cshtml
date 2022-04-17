@@ -1,0 +1,20 @@
+﻿@model OneNewsViewModel
+
+<div class="container-fluid">
+    <div>
+        <h1 align="center">@Model.News.Title</h1>
+        <div class="d-xl-inline-flex">
+            <div>
+                <img class="img-thumbnail" src="data:image/jpeg; base64, @Model.News.ImageData" />
+                <div>
+                    <label>@Model.News.Subtitle</label>
+                </div>
+            </div>
+            <div  style="height: 421px; width:800px">
+                <p class="p-md-3">
+                    @Model.News.Text
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
